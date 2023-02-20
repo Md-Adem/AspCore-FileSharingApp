@@ -1,0 +1,64 @@
+﻿@model IEnumerable<UploadsViewModel>
+@inject IViewLocalizer Localizer;
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="text-center">
+    <h1>@Localizer["Search Files"]</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form asp-controller="Uploads" asp-action="Results">
+                    <div class="input-group input-group-lg mb-3">
+                        <input type="text" class="form-control" name="search" placeholder="@Localizer["File Name"]" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">@Localizer["Search"]</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="col-md-12">
+                <div class="row">
+                        <h3 class="text-start">@Localizer["Search Result"]</h3>
+                        <hr />
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-5">
+                                            <img src="~/Uploads/@item.FileName" class="card-img img-thumbnail w-100 h-100" />
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@item.OriginalFileName</h5>
+                                                <p class="card-text"></p>
+                                                <p class="card-text"><small class="text-muted">@item.UploadDate</small></p>
+                                                <p class="card-text">
+                                                    <small class="text-muted">
+                                                        @{
+                                                            var size = item.Size / 1024;
+                                                            if (size < 1024)
+                                                            {
+                                                            <span>@Localizer["Size"] : @(Math.Floor(size)) @Localizer["KB"]</span>
+                                                            }
+                                                            else
+                                                            {
+                                                            <span>@Localizer["Size"] : @((Math.Floor(size) / 1024).ToString("N2")) @Localizer["MB"]</span>
+                                                            }
+                                                        }
+                                                    </small>
+                                                </p>
+                                            <p class="card-text"><small class="text-muted">@Localizer["Downloads"] : @item.DownloadCount</small></p>
+                                            <a asp-action="Download" asp-route-id="@item.FileName" class="btn btn-success">@Localizer["Download"]</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

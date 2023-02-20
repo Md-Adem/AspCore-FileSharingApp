@@ -1,0 +1,66 @@
+﻿@model Uploads
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<hr />
+<h3>Are you sure??</h3>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OriginalFileName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OriginalFileName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ContentType)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ContentType)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+        <dd class="col-sm-10">
+            @*@Html.DisplayFor(model => model.Size)*@
+            @{
+                var size = Model.Size / 1024;
+                if (size < 1024)
+                {
+                   <span>@(Math.Floor(size)) KB</span>
+                }
+                else
+                {
+                  <span>@((Math.Floor(size) / 1024).ToString("N2")) MB</span>
+                }
+            }
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserId )
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UploadDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UploadDate)
+        </dd>
+        <dt class="col-lg-2">
+            Preivew
+        </dt>
+        <dd class="col-lg-6">
+            <img src="~/Uploads/@Model.FileName" width="100" height="200" class="img-thumbnail" />
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="submit" value="Delete" class="btn btn-danger"/> |
+        <a asp-action="Index" class="btn btn-secondary">Back to list</a>
+    </form>
+</div>

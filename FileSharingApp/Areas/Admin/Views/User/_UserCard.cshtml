@@ -1,0 +1,48 @@
+﻿@model AdminUserViewModel
+
+ @**************** User Card ****************@
+              
+     <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+         <div class="card bg-light d-flex flex-fill">
+             <div class="card-header text-muted border-bottom-0">
+                 Digital Strategist
+             </div>
+             <div class="card-body pt-0">
+                 <div class="row">
+                     <div class="col-7">
+                    <h2 class="lead"><b>Name : @(Model.FirstName + " " + Model.LastName)</b></h2>
+                    <p class="text-muted text-sm"><b>Email: </b>@Model.Email</p>
+                         <ul class="ml-4 mb-0 fa-ul text-muted">
+                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-clock"></i></span> Created : <span class="moment-date">@Model.CreatedDate</span></li>
+                             @*<li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Phone #: + 800 - 12 12 23 52</li>*@
+                         </ul>
+                     </div>
+                     <div class="col-5 text-center">
+                         <img src="~/Admin/dist/img/blank-user.png" alt="user-avatar" class="img-circle img-fluid">
+                     </div>
+                 </div>
+             </div>
+             <div class="card-footer">
+                 <div class="text-right">
+                     <div class="row">
+                         <div class="col-8">
+                             <form asp-action="Block" asp-controller="User" asp-area="Admin">
+                                 <input type="hidden" name="userId" value="@Model.Id"/>
+                                 <button type="submit" class="btn btn-sm @(Model.IsBlocked ? "btn-danger" : "btn-success")">
+                                 <i class="fas @(Model.IsBlocked ? "fa-user-lock" : "fa-user")"></i>  @(Model.IsBlocked ? "Unblock User" : "Block User")
+                                 </button>
+                             </form>
+                         </div>
+                         <div class="col-4">
+                             <a href="#" class="btn btn-sm btn-primary">
+                                <i class="fas fa-user"></i> View Profile
+                             </a>
+                         </div>
+                     </div>
+                     
+                     
+                 </div>
+             </div>
+         </div>
+     </div>
+               

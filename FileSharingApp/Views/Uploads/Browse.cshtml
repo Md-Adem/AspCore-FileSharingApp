@@ -1,0 +1,58 @@
+﻿@model IEnumerable<UploadsViewModel>
+@inject IViewLocalizer Localizer;
+@{
+    ViewData["Title"] = "Browse";
+}
+
+<div class="text-center">
+    <h1 class="text-start">@Localizer["Browse Files"]</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="row">
+                        <hr />
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-4">
+                                <div class="card mb-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-5">
+                                        <img src="~/Uploads/@item.FileName" class="card-img img-thumbnail w-100 h-100 lazyload" />
+                                        </div>
+                                        <div class="col-md-7">
+                                            <div class="card-body">
+                                                <h5 class="card-title">@item.OriginalFileName</h5>
+                                                <p class="card-text"></p>
+                                                <p class="card-text"><small class="text-muted">@item.UploadDate</small></p>
+                                                <p class="card-text"><small class="text-muted">
+                                                    @{
+                                                        var size = item.Size / 1024;
+                                                        if (size < 1024)
+                                                        {
+                                                            <span>@Localizer["Size"] : @(Math.Floor(size)) @Localizer["KB"]</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>@Localizer["Size"] : @((Math.Floor(size) / 1024).ToString("N2")) @Localizer["MB"]</span>
+                                                        }
+                                                    }
+                                                </small></p>
+                                            <p class="card-text"><small class="text-muted">@Localizer["Downloads"] : @item.DownloadCount</small></p>
+                                            <a asp-action="Download" asp-route-id="@item.FileName" class="btn btn-success">@Localizer["Download"]</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-12 text-center">
+                            <div>
+                                <a asp-controller="Uploads" asp-action="Browse" asp-route-requiredPage="@(ViewBag.CurrentPage - 1)" class="btn btn-outline-primary align-content-start">Prev</a>
+                                <a asp-controller="Uploads" asp-action="Browse" asp-route-requiredPage="@(ViewBag.CurrentPage + 1)" class="btn btn-outline-primary align-content-end">Next</a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

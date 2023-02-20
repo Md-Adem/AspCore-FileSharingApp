@@ -1,0 +1,44 @@
+﻿@model LoginViewModel
+@inject IViewLocalizer Localizer;
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="height: 75vh">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="border border-3 border-primary opacity-75"></div>
+                <div class="card bg-white shadow-lg">
+                    <div class="card-body p-5">
+                        <form class="mb-3 mt-md-4" asp-action="Login" asp-route-ReturnUrl="@Context.Request.Query["ReturnUrl"]">
+                            <h2 class="fw-bold mb-2 text-uppercase text-center">@Localizer["Login"]</h2>
+                            <p class=" mb-5 text-center">@Localizer["Please enter your email and password"]</p>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">@Localizer["Email"]</label>
+                                <input asp-for="Email" class="form-control" placeholder="name@example.com"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">@Localizer["Password"]</label>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="*******" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <p class="small"><a class="text-primary" href="#">@Localizer["Forgot password?"]</a></p>
+                            <div class="d-grid">
+                                <input type="submit" value="@Localizer["Login"]" class="btn btn-outline-dark" />
+                            </div>
+                        </form>
+                        <div>
+                            <p class="mb-0  text-center">
+                                @Localizer["Don't have an account?"]
+                                <a asp-action="Register" class="text-primary fw-bold">@Localizer["Register"]</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

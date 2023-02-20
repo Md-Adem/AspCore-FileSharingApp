@@ -1,0 +1,49 @@
+﻿@model RegisterViewModel
+@inject IViewLocalizer Localizer;
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<div class="d-flex justify-content-center align-items-center" style="height: 75vh">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="border border-3 border-primary opacity-75"></div>
+                <div class="card bg-white shadow-lg">
+                    <div class="card-body p-5">
+                        <form class="mb-3 mt-md-4" asp-action="Register">
+                            <h2 class="fw-bold mb-2 text-uppercase text-center">@Localizer["Register"]</h2>
+                            <p class=" mb-5 text-center">@Localizer["Please enter an email and password"]</p>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">@Localizer["Email"]</label>
+                                <input asp-for="Email" class="form-control" placeholder="name@example.com"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">@Localizer["Password"]</label>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="*******" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">@Localizer["Confirm Password"]</label>
+                                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="*******" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="d-grid">
+                                <input type="submit" value="@Localizer["Register"]" class="btn btn-outline-dark" />
+                            </div>
+                        </form>
+                        <div>
+                            <p class="mb-0  text-center">
+                                @Localizer["Already Have Account?"]
+                                <a asp-action="Login" class="text-primary fw-bold">@Localizer["Login"]</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

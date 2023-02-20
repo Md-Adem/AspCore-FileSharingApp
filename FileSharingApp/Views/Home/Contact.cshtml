@@ -1,0 +1,70 @@
+﻿@model ContactViewModel
+@inject IViewLocalizer Localizer;
+@{
+    ViewData["Title"] = "Contact";
+}
+@if (TempData["Message"] != null)
+{
+	<div class="alert alert-success">
+		<strong>@TempData["Message"]</strong>
+	</div>
+}
+
+<!-- Start Contact -->
+<section id="mu-contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="mu-contact-area p-0">
+					<!-- Title -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="mu-title">
+								<h2>@Localizer["Contact Us"]</h2>
+								<p>@Localizer["If you need help or any specific inquiry, you can send your information and we will contact you as soon as possible"].</p>
+							</div>
+						</div>
+					</div>
+					<!-- Start Contact Content -->
+					<div class="mu-contact-content">
+						<div class="row">
+
+							<div class="col-md-12">
+								<div class="mu-contact-form-area">
+									<div id="form-messages"></div>
+									<form asp-action="Contact" asp-controller="Home" class="mu-contact-form">
+
+										<div class="form-group">
+											<span class="fa fa-user mu-contact-icon"></span>
+											<input asp-for="Name" type="text" class="form-control" placeholder="@Localizer["Name"]" required>
+										</div>
+
+										<div class="form-group">
+											<span class="fa fa-envelope mu-contact-icon"></span>
+											<input asp-for="Email" type="email" class="form-control" placeholder="@Localizer["Enter Email"]" required>
+										</div>
+
+										<div class="form-group">
+											<span class="fa fa-folder-open-o mu-contact-icon"></span>
+											<input asp-for="Subject" type="text" class="form-control" placeholder="@Localizer["Your Subject"]" required>
+										</div>
+
+										<div class="form-group">
+											<span class="fa fa-pencil-square-o mu-contact-icon"></span>
+											<textarea asp-for="Message" class="form-control" placeholder="@Localizer["Message"]" required></textarea>
+										</div>
+										<button type="submit" class="mu-send-msg-btn"><span>@Localizer["Send Message"]</span></button>
+									</form>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- End Contact Content -->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End Contact -->
+

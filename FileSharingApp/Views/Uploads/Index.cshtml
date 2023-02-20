@@ -1,0 +1,82 @@
+﻿@model IEnumerable<UploadsViewModel>
+
+@inject IViewLocalizer Localizer;
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Localizer["My Uploads"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">@Localizer["Create New"]</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Localizer["Previwe"]
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OriginalFileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Size)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContentType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UploadDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DownloadCount)
+            </th>
+            <th>
+                @Localizer["Actions"]
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/Uploads/@item.FileName" width="70" height="70" class="img-thumbnail"/>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.OriginalFileName)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelitem => item.Size)*@
+                    @{
+                        var size = item.Size / 1024;
+                        if(size < 1024)
+                        {
+                            <span>@(Math.Floor(size)) KB</span>
+                        }
+                        else
+                        {
+                            <span>@((Math.Floor(size) / 1024).ToString("N2")) MB</span>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.ContentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.UploadDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.DownloadCount)
+                </td>
+                <td class="">
+                    <a asp-action="Download" asp-route-id="@item.FileName" type="submit" class="btn btn-sm btn-success">@Localizer["Download"]</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">@Localizer["Delete"]</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
